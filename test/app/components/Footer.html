@@ -1,0 +1,9 @@
+<div (click)="handleClick()">Footer: {{ name }}</div>
+<div>
+	<label>Username: </label><input [(ngModel)]="authenservice.username">
+</div>
+<div>
+	<label>Username: {{ authenservice.username }}</label>
+</div>
+<InputMain [(name)]="name" [value]="name">Update</InputMain>
+<Test *ngFor="let line of lines" [line]="line"></Test>

@@ -1,0 +1,5 @@
+<h2>{{ authenservice.username }}</h2>
+<button (click)="goTo('/home')">Home</button>
+<button (click)="goTo('/account')">Account</button>
+<ButtonMain [name]="name" (onClick)="goTo('/account')">Test</ButtonMain>
+<div (click)="handleClick()">Header: {{ name }}</div>

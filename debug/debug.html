@@ -1,0 +1,58 @@
+<script>
+if (window.require || window.requirejs) {
+  delete window.require;
+  delete window.requirejs;
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.23.0/min/vs/loader.min.js"></script>
+<body>
+	<div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; background: white">
+		<div style="position: relative; width: 100%">
+			<div style="position: relative; resize: vertical; overflow: auto; width: calc(50% - 15px / 2); height: calc(50vh + 15px / 2)">
+        <div style="position: absolute; right: calc(15px * 2); bottom: 0; background: red; width: 15px; height: 15px" onclick="clearIframe()"></div>
+        <div style="position: absolute; right: 15px; bottom: 0; background: blue; width: 15px; height: 15px" onclick="showIframe()"></div>
+				<div style="position: absolute; right: 0; bottom: 0; background: green; width: 15px; height: 15px"></div>
+			</div>
+			<div style="position: absolute; top: 0; left: 0; width: 100%; height: calc(100% - 15px)" id="js"></div>
+		</div>
+		<pre style="flex: 1; overflow: auto; margin: 0" id="view"></pre>
+	</div>
+</body>
+<script>
+const log = (k, ...vs) => document.querySelector('#view').innerHTML += (vs.length ? '<span style="color: red">' + k + '</span>' : k) + (vs.length ? ' ' + vs.join(' ') : '') + "\n";
+const clearIframe = () => document.querySelector('#view').innerHTML = '';
+const showIframe = () => {
+  var jsVal = js.getValue();
+  localStorage.setItem("debug jsVal", jsVal);
+  window.on_save ? window.on_save(jsVal, log, eval) : (() => {
+	  try {
+		  eval(jsVal);
+	  } catch (ex) {
+		  log(ex);
+	  }
+  })();
+};
+const timeout = setTimeout(() => log('Error: Waiting require timeout'), 2000);
+const interval = setInterval(() => {
+	if(window.require) {
+    clearTimeout(timeout);
+	  clearInterval(interval);
+	  try {
+		  require.config({
+			    baseUrl: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.23.0/min/"
+			  });
+			  require(["vs/editor/editor.main"], function () {
+			    window.js = monaco.editor.create(document.querySelector("#js"), {
+			      model: monaco.editor.createModel(localStorage.getItem("debug jsVal"), "javascript"),
+			      theme: "vs-dark",
+			      automaticLayout: true
+			    });
+			    js.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_L, clearIframe);
+			    js.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, showIframe);
+			  });
+			} catch (ex) {
+			  log(ex);
+			}
+	}
+}, 300);
+</script>
