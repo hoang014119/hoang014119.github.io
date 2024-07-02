@@ -1,4 +1,4 @@
 SCRIPT_DIR=$(pwd)
 cd ../../../../..
-. git.sh
+. g
 cd $SCRIPT_DIR
