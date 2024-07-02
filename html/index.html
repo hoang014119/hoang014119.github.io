@@ -1,5 +1,3 @@
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.23.0/min/vs/loader.min.js"></script>
 <style>
 .box-h, .box-v {
 	display: flex;
@@ -78,7 +76,12 @@
 					<div class="button" style="height: 200px">
 						<div class="icon"></div>
 					</div>
-					<div class="view" id="html"></div>
+					<div class="view box-v">
+						<div id="data"></div>
+						<div style="flex: 1; position: relative">
+							<div class="view" id="html"></div>
+						</div>
+					</div>
 				</div>
 				<div class="fill" id="js"></div>
 			</div>
@@ -87,33 +90,6 @@
 	</div>
 </body>
 
-<script>
-var $ = document.querySelector.bind(document);
-function showIframe(){
-	var htmlVal = html.getValue();
-	var jsVal = js.getValue();
-	(window.WebPortal || localStorage).setItem("htmlVal", htmlVal);
-	(window.WebPortal || localStorage).setItem("jsVal", jsVal);
-	$("#iframe").src = "data:text/html;charset=utf-8," + escape(htmlVal + "<script>" + jsVal + "</" + "script>");
-	window.on_save && window.on_save({htmlVal, jsVal})
-}
-
-require.config({
-	baseUrl: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.23.0/min/"
-});
-require(["vs/editor/editor.main"], function () {
-  const saved = window.load_save && window.load_save()
-	window.html = monaco.editor.create($("#html"), {
-		model: monaco.editor.createModel(saved ? saved.htmlVal : (window.WebPortal || localStorage).getItem("htmlVal"), "html"),
-		theme: "vs-dark",
-		automaticLayout: true
-	});
-	html.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, showIframe);
-	window.js = monaco.editor.create($("#js"), {
-		model: monaco.editor.createModel(saved ? saved.jsVal : (window.WebPortal || localStorage).getItem("jsVal"), "javascript"),
-		theme: "vs-dark",
-		automaticLayout: true
-	});
-	js.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, showIframe);
-});
-</script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.23.0/min/vs/loader.min.js"></script>
+<script src="index.js"></script>
