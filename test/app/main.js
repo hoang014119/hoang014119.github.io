@@ -34,7 +34,8 @@ new Promise(async res => {
       const code = Babel.transform(await (fetch(`app/${name}.ts`).then(rs => rs.text())), {
         //        sourceMap: 'inline',
         //        sourceFileName: `${name}.ts`,
-        plugins: ['transform-es2015-modules-amd', 'transform-decorators-legacy', 'transform-class-properties'],
+        //        plugins: ['transform-es2015-modules-amd', 'transform-decorators-legacy', 'transform-class-properties'],
+        plugins: ['transform-modules-amd', 'transform-typescript', ['proposal-decorators', { "version": "legacy" }]],
         resolveModuleSource: importName => {
           if (importName.startsWith('@')) {
             return importName
