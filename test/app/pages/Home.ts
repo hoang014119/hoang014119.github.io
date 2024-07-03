@@ -11,4 +11,8 @@ export default class {
   ngOnInit() {
     console.log('iframe', this.iframe)
   }
+
+  ngAfterViewInit() {
+    console.log('iframe', this.iframe)
+  }
 }
