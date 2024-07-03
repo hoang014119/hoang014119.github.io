@@ -13,6 +13,6 @@ export default class {
   }
 
   ngAfterViewInit() {
-    console.log('iframe', this.iframe)
+    console.log('iframe', this.iframe.nativeElement)
   }
 }
