@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core'
+import { Component, Inject, ViewChild } from '@angular/core'
 import { Router } from '@angular/router';
 import AuthenService from '../services/AuthenService'
 
@@ -9,4 +9,13 @@ import AuthenService from '../services/AuthenService'
 })
 export default class {
   @Inject(AuthenService) authenservice = ''
+  @ViewChild('iframe') iframe = null
+
+  ngOnInit() {
+    console.log('iframe', this.iframe)
+  }
+
+  ngAfterViewInit() {
+    console.log('iframe', this.iframe.nativeElement)
+  }
 }

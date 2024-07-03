@@ -6,14 +6,18 @@ import Account from './Account'
 
 const routes = [
   {
-    path: '',
-    redirectTo: 'home',
+    path: 'home',
+    redirectTo: '',
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: '',
     component: Home
   },
+  //  {
+  //    path: 'home',
+  //    component: Home
+  //  },
   {
     path: 'account',
     component: Account
