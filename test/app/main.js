@@ -54,36 +54,37 @@ new Promise(async res => {
       //      name.endsWith('app.module') && console.log('name', name)
       const dir = `${name}/`.split('/').filter((x, i, ar) => ar.length > 2 && i != ar.length - 2).join('/')
       const code =
-        Babel.transform(
-          //        Babel7.transform(
+        //        Babel.transform(
+        Babel7.transform(
           await (fetch(`app/${name}.ts`).then(rs => rs.text())),
-          //          {
-          //            plugins: [
-          //              'transform-modules-amd',
-          //              'transform-typescript',
-          //              ['proposal-decorators', { "version": "legacy" }]
-          //            ],
-          //          }
-          //        ).code
-          //              ,
           {
-            //        sourceMap: 'inline',
-            //        sourceFileName: `${name}.ts`,
             plugins: [
-              'transform-es2015-modules-amd',
-              'transform-decorators-legacy',
+              'transform-modules-amd',
+              'transform-typescript',
+              ['proposal-decorators', { "version": "legacy" }],
               'transform-class-properties'
             ],
-            //        plugins: ['transform-typescript', ['proposal-decorators', { "version": "legacy" }]],
-            //            resolveModuleSource: importName => {
-            //              if (importName.startsWith('@')) {
-            //                return importName
-            //              }
-            //              console.log('importName', importName)
-            //              return `es6!${dir}${importName}`
-            //            },
           }
         ).code
+      //                        ,
+      //          {
+      //            //        sourceMap: 'inline',
+      //            //        sourceFileName: `${name}.ts`,
+      //            plugins: [
+      //              'transform-es2015-modules-amd',
+      //              'transform-decorators-legacy',
+      //              'transform-class-properties'
+      //            ],
+      //            //        plugins: ['transform-typescript', ['proposal-decorators', { "version": "legacy" }]],
+      //            //            resolveModuleSource: importName => {
+      //            //              if (importName.startsWith('@')) {
+      //            //                return importName
+      //            //              }
+      //            //              console.log('importName', importName)
+      //            //              return `es6!${dir}${importName}`
+      //            //            },
+      //          }
+      //        ).code
       //      name.endsWith('header.component') && console.log('header.component', code)
       new RegExp(`templateUrl:.+${name.split('/').pop()}.html`).test(code) && await new Promise(
         res => require([`text!${name}.html`], res)
