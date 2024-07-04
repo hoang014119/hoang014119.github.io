@@ -2,6 +2,14 @@ Babel.transform(text.split("\n").filter((x, i) => i).join("\n"), { sourceMap: 'i
 new Promise(async res => {
   const { Component } = AngularCore
 
+  const builtin_define = define
+  window.define = (name, deps, callback) => {
+    const new_deps = typeof name !== 'string' ? name : deps
+    new_deps.forEach && new_deps.forEach((name, i) => {
+      console.log('name', name)
+    })
+    return builtin_define(name, deps, callback)
+  }
 
   define('@angular/core', {
     ...AngularCore,
@@ -33,16 +41,17 @@ new Promise(async res => {
       const dir = `${name}/`.split('/').filter((x, i, ar) => ar.length > 2 && i != ar.length - 2).join('/')
       const code =
         Babel.transform(
-          //          Babel7.transform(
+          //        Babel7.transform(
           await (fetch(`app/${name}.ts`).then(rs => rs.text())),
-          //            {
-          //              plugins: [
-          //                // 'transform-modules-amd',
-          //                'transform-typescript',
-          //                //              ['proposal-decorators', { "version": "legacy" }]
-          //              ],
-          //            }
-          //          ).code,
+          //          {
+          //            plugins: [
+          //              'transform-modules-amd',
+          //              'transform-typescript',
+          //              ['proposal-decorators', { "version": "legacy" }]
+          //            ],
+          //          }
+          //        ).code
+          //              ,
           {
             //        sourceMap: 'inline',
             //        sourceFileName: `${name}.ts`,
@@ -64,6 +73,7 @@ new Promise(async res => {
       new RegExp(`templateUrl:.+${name.split('/').pop()}.html`).test(code) && await new Promise(
         res => require([`text!${name}.html`], res)
       )
+      //      console.log(name, code)
       onLoad.fromText(code)
     }
   })
