@@ -6,9 +6,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
   templateUrl: './InputMain.html',
 })
 export default class {
-  @Input() name = ''
+  @Input() name
   @Output() nameChange = new EventEmitter()
-  @Input() value = ''
+  @Input() value
 
   handleClick() {
     this.nameChange.emit(this.value)

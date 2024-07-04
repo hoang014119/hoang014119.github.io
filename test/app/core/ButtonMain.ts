@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
   templateUrl: './ButtonMain.html',
 })
 export default class {
-  @Input() name = ''
+  @Input() name
   @Output() onClick = new EventEmitter()
 
   handleClick() {

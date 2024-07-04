@@ -8,8 +8,8 @@ import AuthenService from '@services/AuthenService'
   templateUrl: './Account.html'
 })
 export default class {
-  @Inject(AuthenService) authenservice = ''
-  @ViewChild('iframe') iframe = null
+  @Inject(AuthenService) authenservice
+  @ViewChild('iframe') iframe
 
   ngOnInit() {
     console.log('iframe', this.iframe)

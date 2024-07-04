@@ -7,7 +7,7 @@ import Test from '@components/Test'
 })
 export default class {
   //  @Inject(Test) 
-  test = ''
+  test: any
 
   ngOnInit() {
     //    console.log('test', this.test)

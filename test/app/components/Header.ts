@@ -8,8 +8,8 @@ import AuthenService from '@services/AuthenService'
   templateUrl: './Header.html',
 })
 export default class {
-  @Inject(Router) router = ''
-  @Inject(AuthenService) authenservice = ''
+  @Inject(Router) router
+  @Inject(AuthenService) authenservice
   name = 'test ok'
 
   goTo(url) {

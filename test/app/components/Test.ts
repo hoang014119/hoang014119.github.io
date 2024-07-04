@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core'
   templateUrl: './Test.html'
 })
 export default class {
-  @Input() line = ''
+  @Input() line
 }

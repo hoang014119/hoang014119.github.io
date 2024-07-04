@@ -7,5 +7,5 @@ import AuthenService from '@services/AuthenService'
   templateUrl: './Home.html'
 })
 export default class {
-  @Inject(AuthenService) authenservice = ''
+  @Inject(AuthenService) authenservice
 }
