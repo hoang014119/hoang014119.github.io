@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core'
 import { Router } from '@angular/router';
-import AuthenService from '../services/AuthenService'
+import AuthenService from '@services/AuthenService'
 
 
 @Component({

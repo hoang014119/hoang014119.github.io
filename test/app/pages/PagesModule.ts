@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import Home from './Home'
-import Account from './Account'
+import Home from '@pages/Home'
+import Account from '@pages/Account'
 
 
 const routes = [

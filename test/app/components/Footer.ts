@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core'
-import AuthenService from '../services/AuthenService'
+import AuthenService from '@services/AuthenService'
 
 
 @Component({

@@ -2,11 +2,25 @@ Babel.transform(text.split("\n").filter((x, i) => i).join("\n"), { sourceMap: 'i
 new Promise(async res => {
   const { Component } = AngularCore
 
+  const tsconfig = await fetch('tsconfig.json').then(rs => rs.json())
+  //  console.log('tsconfig', tsconfig)
+
+  const paths = Object.entries(tsconfig.compilerOptions.paths).reduce((paths, [path, value]) => [paths[path.replace('*', '')] = value[0].replace('*', ''), paths][1], {})
+  //  console.log('paths', paths)
   const builtin_define = define
   window.define = (name, deps, callback) => {
     const new_deps = typeof name !== 'string' ? name : deps
     new_deps.forEach && new_deps.forEach((name, i) => {
-      console.log('name', name)
+      Object.entries(paths).some(([path, value]) => {
+        if (name.startsWith(path)) {
+          new_deps[i] = name.replace(path, 'es6!' + value)
+          return true
+        }
+      })
+      if (name.startsWith('./')) {
+        new_deps[i] = 'es6!' + name
+      }
+      //      console.log('name', name)
     })
     return builtin_define(name, deps, callback)
   }
@@ -61,12 +75,13 @@ new Promise(async res => {
               'transform-class-properties'
             ],
             //        plugins: ['transform-typescript', ['proposal-decorators', { "version": "legacy" }]],
-            resolveModuleSource: importName => {
-              if (importName.startsWith('@')) {
-                return importName
-              }
-              return `es6!${dir}${importName}`
-            },
+            //            resolveModuleSource: importName => {
+            //              if (importName.startsWith('@')) {
+            //                return importName
+            //              }
+            //              console.log('importName', importName)
+            //              return `es6!${dir}${importName}`
+            //            },
           }
         ).code
       //      name.endsWith('header.component') && console.log('header.component', code)

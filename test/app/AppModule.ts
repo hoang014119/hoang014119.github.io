@@ -3,10 +3,11 @@ import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule } from '@angular/router';
 import { JitCompilerFactory } from '@angular/platform-browser-dynamic'
 import { FormsModule } from '@angular/forms';
-import CoreModule, { components as core } from './core/CoreModule'
-import ComponentsModule, { components } from './components/ComponentsModule'
-import PagesModule, { components as pages } from './pages/PagesModule'
+import CoreModule, { components as core } from '@core/CoreModule'
+import ComponentsModule, { components } from '@components/ComponentsModule'
+import PagesModule, { components as pages } from '@pages/PagesModule'
 import App from './App'
+
 
 const routes = [
   {

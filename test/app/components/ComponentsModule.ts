@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
-import Header from './Header'
-import Footer from './Footer'
-import Test from './Test'
-import TestItem from './TestItem'
+import Header from '@components/Header'
+import Footer from '@components/Footer'
+import Test from '@components/Test'
+import TestItem from '@components/TestItem'
 
 
 export const components = [Header, Footer, Test, TestItem]

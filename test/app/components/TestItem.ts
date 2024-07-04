@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core'
-import Test from './Test'
+import Test from '@components/Test'
 
 @Component({
   selector: 'TestItem',

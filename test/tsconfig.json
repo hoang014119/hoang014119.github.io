@@ -1,0 +1,20 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./app/",
+    "paths": {
+      "@components/*": [
+        "components/*"
+      ],
+      "@core/*": [
+        "core/*"
+      ],
+      "@pages/*": [
+        "pages/*"
+      ],
+      "@services/*": [
+        "services/*"
+      ]
+    }
+  }
+}

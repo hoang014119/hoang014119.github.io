@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
-import ButtonMain from './ButtonMain'
-import InputMain from './InputMain'
+import ButtonMain from '@core/ButtonMain'
+import InputMain from '@core/InputMain'
 
 
 export const components = [ButtonMain, InputMain]
