@@ -1,4 +1,4 @@
-Babel.transform(text.split("\n").filter((x, i) => i).join("\n"), { sourceMap: 'inline', sourceFileName: 'app.module.js', plugins: ['transform-object-rest-spread'] }).code
+Babel7.transform(text.split("\n").filter((x, i) => i).join("\n"), { sourceMap: 'inline', sourceFileName: 'app.module.js'/*, plugins: ['transform-object-rest-spread']*/ }).code
 new Promise(async res => {
   const { Component } = AngularCore
 
@@ -63,6 +63,8 @@ new Promise(async res => {
         Babel7.transform(
           await (fetch(`app/${name}.ts`).then(rs => rs.text())),
           {
+            sourceMap: 'inline',
+            sourceFileName: `${name}.ts`,
             plugins: [
               'transform-modules-amd',
               'transform-typescript',
