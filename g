@@ -1,4 +1,4 @@
 SCRIPT_DIR=$(pwd)
-cd ../../../../..
+cd ../../../..
 . g
 cd $SCRIPT_DIR
