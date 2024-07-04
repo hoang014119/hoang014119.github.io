@@ -1,24 +1,39 @@
-import { NgModule, COMPILER_OPTIONS, CompilerFactory } from '@angular/core'
+import { NgModule, COMPILER_OPTIONS, CompilerFactory, Inject } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule } from '@angular/router';
 import { JitCompilerFactory } from '@angular/platform-browser-dynamic'
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import CoreModule, { components as core } from '@core/CoreModule'
 import ComponentsModule, { components } from '@components/ComponentsModule'
 import PagesModule, { components as pages } from '@pages/PagesModule'
 import App from './App'
+import Home from '@pages/Home'
+import Account from '@pages/Account'
 
 
 const routes = [
   {
+    path: 'home',
+    redirectTo: '',
+  },
+  {
+    path: 'account',
+    component: Account,
+  },
+  {
+    path: '',
+    component: Home
+  },
+  {
     path: '**',
-    component: App
-  }
+    redirectTo: ''
+  },
 ]
 
 @NgModule({
   declarations: [App, ...core, ...components, ...pages],
-  imports: [RouterModule.forRoot(routes), BrowserModule, CoreModule, ComponentsModule, PagesModule],
+  imports: [RouterModule.forRoot(routes, { useHash: true }), BrowserModule, CoreModule, ComponentsModule, PagesModule],
   exports: [RouterModule, FormsModule],
   providers: [
     { provide: COMPILER_OPTIONS, useValue: {}, multi: true },
@@ -26,4 +41,25 @@ const routes = [
   ],
   bootstrap: [App]
 })
-export default class { }
+export default class AppModule {
+  static instance: AppModule;
+
+  @Inject(Router) router
+
+  constructor() {
+    AppModule.instance = this;
+    console.log('router', this.router)
+  }
+
+  async getFragment() {
+    return new Promise(res => this.router.fragment.subscribe(fragment => {
+      console.log('fragment', fragment)
+      res(fragment)
+    }))
+  }
+
+  async test(hash, module) {
+    const fragment = await this.getFragment()
+    return hash == fragment && module
+  }
+}
