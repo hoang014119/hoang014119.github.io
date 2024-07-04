@@ -5,7 +5,12 @@ new Promise(async res => {
   const tsconfig = await fetch('tsconfig.json').then(rs => rs.json())
   //  console.log('tsconfig', tsconfig)
 
-  const paths = Object.entries(tsconfig.compilerOptions.paths).reduce((paths, [path, value]) => [paths[path.replace('*', '')] = value[0].replace('*', ''), paths][1], {})
+  const paths = Object.entries(tsconfig.compilerOptions.paths).reduce((paths, [path, value]) => {
+    //    if (path != "@angular/*") {
+    paths[path.replace('*', '')] = value[0].replace('*', '')
+    //    }
+    return paths
+  }, {})
   //  console.log('paths', paths)
   const builtin_define = define
   window.define = (name, deps, callback) => {
