@@ -2,19 +2,19 @@
   "compileOnSave": false,
   "compilerOptions": {
     "experimentalDecorators": true,
-    "baseUrl": "./app/",
+    "baseUrl": "../../test/node_modules/",
     "paths": {
       "@components/*": [
-        "components/*"
+        "../../hoang014119.github.io/test/app/components/*"
       ],
       "@core/*": [
-        "core/*"
+        "../../hoang014119.github.io/test/app/core/*"
       ],
       "@pages/*": [
-        "pages/*"
+        "../../hoang014119.github.io/test/app/pages/*"
       ],
       "@services/*": [
-        "services/*"
+        "../../hoang014119.github.io/test/app/services/*"
       ]
     }
   }

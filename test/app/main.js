@@ -1,13 +1,14 @@
 Babel7.transform(text.split("\n").filter((x, i) => i).join("\n"), { sourceMap: 'inline', sourceFileName: 'app/main.js'/*, plugins: ['transform-object-rest-spread']*/ }).code
 new Promise(async res => {
+  console.log('MainModule', MainModule)
   const { Component } = AngularCore
 
   const tsconfig = await fetch('tsconfig.json').then(rs => rs.json())
   //  console.log('tsconfig', tsconfig)
 
-  const paths = Object.entries(tsconfig.compilerOptions.paths).reduce((paths, [path, value]) => {
+  const paths = Object.keys(tsconfig.compilerOptions.paths).reduce((paths, path) => {
     //    if (path != "@angular/*") {
-    paths[path.replace('*', '')] = value[0].replace('*', '')
+    paths[path.replace('*', '')] = path.replace('@', '').replace('*', '')
     //    }
     return paths
   }, {})

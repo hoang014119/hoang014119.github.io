@@ -5,13 +5,22 @@ import TestService from '@components/TestService'
 @Component({
   selector: 'Test',
   templateUrl: './Test.html',
-//  providers: [TestService]
+  providers: [TestService]
 })
 export default class {
-//  @Inject(TestService) testService
+  @Inject(TestService) testService
   @Input() key
 
+  //  constructor() {
+  //    console.log('Test this.key', this.key)
+  //    //    console.log('Test this.testService', this.testService)
+  //    //    console.log('Test this.testService.key', this.testService.key)
+  //  }
+
   ngOnInit() {
-//    console.log('this.testService.key', this.testService.key)
+//    console.log('Test this.key', this.key)
+    //    this.testService.key = this.key
+//    console.log('Test this.testService', this.testService)
+    //    console.log('Test this.testService.key', this.testService.key)
   }
 }
