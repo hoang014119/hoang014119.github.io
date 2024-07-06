@@ -48,7 +48,7 @@ export default class AppModule {
 
   constructor() {
     AppModule.instance = this;
-    console.log('router', this.router)
+//    console.log('router', this.router)
   }
 
   async getFragment() {

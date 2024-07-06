@@ -1,6 +1,6 @@
 Babel7.transform(text.split("\n").filter((x, i) => i).join("\n"), { sourceMap: 'inline', sourceFileName: 'app/main.js'/*, plugins: ['transform-object-rest-spread']*/ }).code
 new Promise(async res => {
-  console.log('MainModule', MainModule)
+//  console.log('MainModule', MainModule)
   const { Component } = AngularCore
 
   const tsconfig = await fetch('tsconfig.json').then(rs => rs.json())

@@ -18,9 +18,10 @@ export default class {
   //  }
 
   ngOnInit() {
-//    console.log('Test this.key', this.key)
+    console.log('Test', this)
+    //    console.log('Test this.key', this.key)
     //    this.testService.key = this.key
-//    console.log('Test this.testService', this.testService)
+    //    console.log('Test this.testService', this.testService)
     //    console.log('Test this.testService.key', this.testService.key)
   }
 }
