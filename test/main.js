@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\projects\Demo\Web\github.io\minhhoang014119.github.io\test\src\main.ts */"zUnb");
+module.exports = __webpack_require__(/*! D:\projects\Demo\Web\github.io\hoang014119\test\src\main.ts */"zUnb");
 
 
 /***/ }),
@@ -65,28 +65,30 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
+//import AppModule from './test/AppModule';
 if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["enableProdMode"])();
 }
-class main {
-    constructor(injector) {
-        this.injector = injector;
-        main.inject = (name) => injector.get(name);
-    }
-}
-main.ɵfac = function main_Factory(t) { return new (t || main)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injector"])); };
-main.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineNgModule"]({ type: main });
-main.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjector"]({});
+//@NgModule({})
+//class main {
+//  static inject: Function
+//
+//  constructor(private injector: Injector) {
+//    main.inject = (name: any) => injector.get(name)
+//  }
+//}
 (() => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function* () {
     const AngularCore = _angular_core__WEBPACK_IMPORTED_MODULE_2__;
     const AngularRouter = _angular_router__WEBPACK_IMPORTED_MODULE_4__;
     const PlatformBrowser = _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__;
     const PlatformBrowserDynamic = _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_5__;
     const AngularForms = _angular_forms__WEBPACK_IMPORTED_MODULE_6__;
-    const MainModule = main;
+    //  const MainModule = main
+    //  var AppRoutingModule = AppModule
+    //  if (eval('!/[\?&]test/.test(window.location.href)')) {
     const text = yield fetch('app/main.js').then(rs => rs.text());
-    const AppRoutingModule = yield eval(eval(text.split("\n")[0]));
+    var AppRoutingModule = yield eval(eval(text.split("\n")[0]));
+    //  }
     _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["platformBrowser"]().bootstrapModule(AppRoutingModule).catch(err => console.error(err));
 }))();
 
