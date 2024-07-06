@@ -8,8 +8,8 @@ import AuthenService from '@services/AuthenService'
   templateUrl: './Home.html'
 })
 export default class {
-  @Inject(AuthenService) authenService
   @Inject(Title) titleService
+  @Inject(AuthenService) authenService
 
   ngOnInit() {
     this.titleService.setTitle("Home");
