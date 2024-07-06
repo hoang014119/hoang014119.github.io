@@ -7,11 +7,11 @@ import TestService from '@components/TestService'
   templateUrl: './TestItem.html'
 })
 export default class {
-  //  @Inject(Test) test
+  @Inject(Test) test
   @Inject(TestService) testService
 
   ngOnInit() {
-    //    console.log('TestItem this.test', this.test)
+    console.log('TestItem this.test', this.test)
     //    console.log('TestItem this.testService', this.testService)
     //    console.log('TestItem this.testService.key', this.testService.key)
   }
