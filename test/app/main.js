@@ -1,6 +1,6 @@
 Babel7.transform(text.split("\n").filter((x, i) => i).join("\n"), { sourceMap: 'inline', sourceFileName: 'app/main.js'/*, plugins: ['transform-object-rest-spread']*/ }).code
 new Promise(async res => {
-//  console.log('MainModule', MainModule)
+  //  console.log('MainModule', MainModule)
   const { Component, ɵɵdirectiveInject } = AngularCore
 
   const tsconfig = await fetch('tsconfig.json').then(rs => rs.json())
@@ -45,8 +45,8 @@ new Promise(async res => {
   define('@angular/platform-browser', PlatformBrowser)
   define('@angular/platform-browser-dynamic', PlatformBrowserDynamic)
   define('@angular/forms', () => AngularForms)
-  define('es6!main', () => MainModule)
-  require(['@angular/core', '@angular/router', '@angular/platform-browser', '@angular/platform-browser-dynamic', '@angular/forms', 'es6!main'])
+  //  define('es6!main', () => MainModule)
+  require(['@angular/core', '@angular/router', '@angular/platform-browser', '@angular/platform-browser-dynamic', '@angular/forms'/*, 'es6!main'*/])
   define('text', {
     load: async (name, req, onLoad) => {
       const text = await (fetch(`app/${name}`).then(rs => rs.text()))
