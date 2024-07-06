@@ -104,7 +104,7 @@ new Promise(async res => {
 
   require(['es6!AppModule'], AppModule => {
     //    console.log('AppModule', AppModule.default)
-    AppModule.default.__annotations__[0].imports.push(MainModule)
+    //    AppModule.default.__annotations__[0].imports.push(MainModule)
     res(AppModule.default)
   })
 })
