@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core'
+import { Title } from "@angular/platform-browser";
 import AuthenService from '@services/AuthenService'
 
 
@@ -7,5 +8,11 @@ import AuthenService from '@services/AuthenService'
   templateUrl: './Home.html'
 })
 export default class {
-  @Inject(AuthenService) authenservice
+  @Inject(AuthenService) authenService
+  @Inject(Title) titleService
+
+  ngOnInit() {
+    this.titleService.setTitle("Home");
+  }
+
 }

@@ -7,7 +7,7 @@ import AuthenService from '@services/AuthenService'
   templateUrl: './Footer.html'
 })
 export default class {
-  @Inject(AuthenService) authenservice
+  @Inject(AuthenService) authenService
   name = 'test ok'
   lines = ['a 1', 'b 2']
 

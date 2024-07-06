@@ -9,7 +9,7 @@ import AuthenService from '@services/AuthenService'
 })
 export default class {
   @Inject(Router) router
-  @Inject(AuthenService) authenservice
+  @Inject(AuthenService) authenService
   name = 'test ok'
   tests = [1, 2, 3]
 
