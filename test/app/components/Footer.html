@@ -7,6 +7,6 @@
 	<label>Username: {{ authenservice.username }}</label>
 </div>
 <InputMain [(name)]="name" [value]="name">Update</InputMain>
-<Test *ngFor="let line of lines" [line]="line"></Test>
+<Test *ngFor="let line of lines" [key]="line"></Test>
 <h1>End Footer</h1>
 <hr />

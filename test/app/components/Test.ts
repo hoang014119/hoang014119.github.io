@@ -1,10 +1,17 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, Inject } from '@angular/core'
+import TestService from '@components/TestService'
 
 
 @Component({
   selector: 'Test',
-  templateUrl: './Test.html'
+  templateUrl: './Test.html',
+//  providers: [TestService]
 })
 export default class {
-  @Input() line
+//  @Inject(TestService) testService
+  @Input() key
+
+  ngOnInit() {
+//    console.log('this.testService.key', this.testService.key)
+  }
 }

@@ -11,6 +11,7 @@ export default class {
   @Inject(Router) router
   @Inject(AuthenService) authenservice
   name = 'test ok'
+  tests = [1, 2, 3]
 
   goTo(url) {
     this.router.navigate([url])
