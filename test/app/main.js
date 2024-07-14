@@ -1,18 +1,11 @@
-Babel7.transform(text.split("\n").filter((x, i) => i).join("\n"), { sourceMap: 'inline', sourceFileName: 'app/main.js'/*, plugins: ['transform-object-rest-spread']*/ }).code
-new Promise(async res => {
-  //  console.log('MainModule', MainModule)
+text => Babel.transform(text.split("\n").slice(1).join("\n"), { sourceMap: 'inline', sourceFileName: 'app/main.js' }).code
+async ({ AngularCore, AngularRouter, AngularPlatformBrowser, AngularPlatformBrowserDynamic, AngularForms }) => {
   const { Component, ɵɵdirectiveInject } = AngularCore
-
   const tsconfig = await fetch('tsconfig.json').then(rs => rs.json())
-  //  console.log('tsconfig', tsconfig)
-
   const paths = Object.keys(tsconfig.compilerOptions.paths).reduce((paths, path) => {
-    //    if (path != "@angular/*") {
     paths[path.replace('*', '')] = path.replace('@', '').replace('*', '')
-    //    }
     return paths
   }, {})
-  //  console.log('paths', paths)
   const builtin_define = define
   window.define = (name, deps, callback) => {
     const new_deps = typeof name !== 'string' ? name : deps
@@ -26,11 +19,9 @@ new Promise(async res => {
       if (name.startsWith('./')) {
         new_deps[i] = 'es6!' + name
       }
-      //      console.log('name', name)
     })
     return builtin_define(name, deps, callback)
   }
-
   define('@angular/core', {
     ...AngularCore,
     Component: ({ templateUrl, ...args }) => component => Component({
@@ -42,11 +33,10 @@ new Promise(async res => {
     }),
   })
   define('@angular/router', AngularRouter)
-  define('@angular/platform-browser', PlatformBrowser)
-  define('@angular/platform-browser-dynamic', PlatformBrowserDynamic)
+  define('@angular/platform-browser', AngularPlatformBrowser)
+  define('@angular/platform-browser-dynamic', AngularPlatformBrowserDynamic)
   define('@angular/forms', () => AngularForms)
-  //  define('es6!main', () => MainModule)
-  require(['@angular/core', '@angular/router', '@angular/platform-browser', '@angular/platform-browser-dynamic', '@angular/forms'/*, 'es6!main'*/])
+  require(['@angular/core', '@angular/router', '@angular/platform-browser', '@angular/platform-browser-dynamic', '@angular/forms'])
   define('text', {
     load: async (name, req, onLoad) => {
       const text = await (fetch(`app/${name}`).then(rs => rs.text()))
@@ -57,11 +47,8 @@ new Promise(async res => {
   })
   define('es6', {
     load: async (name, req, onLoad) => {
-      //      name.endsWith('app.module') && console.log('name', name)
-      const dir = `${name}/`.split('/').filter((x, i, ar) => ar.length > 2 && i != ar.length - 2).join('/')
       const code =
-        //        Babel.transform(
-        Babel7.transform(
+        Babel.transform(
           await (fetch(`app/${name}.ts`).then(rs => rs.text())),
           {
             sourceMap: 'inline',
@@ -74,37 +61,11 @@ new Promise(async res => {
             ],
           }
         ).code
-      //                        ,
-      //          {
-      //            //        sourceMap: 'inline',
-      //            //        sourceFileName: `${name}.ts`,
-      //            plugins: [
-      //              'transform-es2015-modules-amd',
-      //              'transform-decorators-legacy',
-      //              'transform-class-properties'
-      //            ],
-      //            //        plugins: ['transform-typescript', ['proposal-decorators', { "version": "legacy" }]],
-      //            //            resolveModuleSource: importName => {
-      //            //              if (importName.startsWith('@')) {
-      //            //                return importName
-      //            //              }
-      //            //              console.log('importName', importName)
-      //            //              return `es6!${dir}${importName}`
-      //            //            },
-      //          }
-      //        ).code
-      //      name.endsWith('header.component') && console.log('header.component', code)
       new RegExp(`templateUrl:.+${name.split('/').pop()}.html`).test(code) && await new Promise(
         res => require([`text!${name}.html`], res)
       )
-      //      console.log(name, code)
       onLoad.fromText(code)
     }
   })
-
-  require(['es6!AppModule'], AppModule => {
-    //    console.log('AppModule', AppModule.default)
-    //    AppModule.default.__annotations__[0].imports.push(MainModule)
-    res(AppModule.default)
-  })
-})
+  return new Promise(res => require(['es6!AppModule'], AppModule => res(AppModule.default)))
+}
