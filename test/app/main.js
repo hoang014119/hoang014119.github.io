@@ -47,20 +47,20 @@ async ({ AngularCore, AngularRouter, AngularPlatformBrowser, AngularPlatformBrow
   })
   define('es6', {
     load: async (name, req, onLoad) => {
-      const code =
-        Babel.transform(
-          await (fetch(`app/${name}.ts`).then(rs => rs.text())),
-          {
-            sourceMap: 'inline',
-            sourceFileName: `app/${name}.ts`,
-            plugins: [
-              'transform-modules-amd',
-              'transform-typescript',
-              ['proposal-decorators', { "version": "legacy" }],
-              'transform-class-properties'
-            ],
-          }
-        ).code
+      const babelCode = Babel.transform(
+        await (fetch(`app/${name}.ts`).then(rs => rs.text())),
+        {
+          sourceMap: 'inline',
+          sourceFileName: `app/${name}.ts`,
+          plugins: [
+            'transform-modules-amd',
+            'transform-typescript',
+            ['proposal-decorators', { "version": "legacy" }],
+            'transform-class-properties'
+          ],
+        }
+      ).code
+      const code = Terser.minify_sync(babelCode, {}).code + "\n" + babelCode.split("\n").pop()
       new RegExp(`templateUrl:.+${name.split('/').pop()}.html`).test(code) && await new Promise(
         res => require([`text!${name}.html`], res)
       )
