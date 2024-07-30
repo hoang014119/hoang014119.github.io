@@ -1,5 +1,4 @@
-text => Babel.transform(text.split("\n").slice(1).join("\n"), { sourceMap: 'inline', sourceFileName: 'app/main.js' }).code
-async ({ AngularCore, AngularRouter, AngularPlatformBrowser, AngularPlatformBrowserDynamic, AngularForms }) => {
+define(['@angular/core'], AngularCore => (async () => {
   const { Component, ɵɵdirectiveInject } = AngularCore
   const tsconfig = await fetch('tsconfig.json').then(rs => rs.json())
   const paths = Object.keys(tsconfig.compilerOptions.paths).reduce((paths, path) => {
@@ -22,6 +21,15 @@ async ({ AngularCore, AngularRouter, AngularPlatformBrowser, AngularPlatformBrow
     })
     return builtin_define(name, deps, callback)
   }
+  define('text', {
+    load: async (name, req, onLoad) => {
+      const text = await (fetch(`app/${name}`).then(rs => rs.text()))
+      define(`text!${name.split('/').pop()}`, text)
+      require([`text!${name.split('/').pop()}`])
+      onLoad(text)
+    }
+  })
+  require.undef('@angular/core')
   define('@angular/core', {
     ...AngularCore,
     Component: ({ templateUrl, ...args }) => component => Component({
@@ -31,19 +39,6 @@ async ({ AngularCore, AngularRouter, AngularPlatformBrowser, AngularPlatformBrow
     Inject: name => () => ({
       initializer: () => ɵɵdirectiveInject(name)
     }),
-  })
-  define('@angular/router', AngularRouter)
-  define('@angular/platform-browser', AngularPlatformBrowser)
-  define('@angular/platform-browser-dynamic', AngularPlatformBrowserDynamic)
-  define('@angular/forms', () => AngularForms)
-  require(['@angular/core', '@angular/router', '@angular/platform-browser', '@angular/platform-browser-dynamic', '@angular/forms'])
-  define('text', {
-    load: async (name, req, onLoad) => {
-      const text = await (fetch(`app/${name}`).then(rs => rs.text()))
-      define(`text!${name.split('/').pop()}`, text)
-      require([`text!${name.split('/').pop()}`])
-      onLoad(text)
-    }
   })
   define('es6', {
     load: async (name, req, onLoad) => {
@@ -68,4 +63,4 @@ async ({ AngularCore, AngularRouter, AngularPlatformBrowser, AngularPlatformBrow
     }
   })
   return new Promise(res => require(['es6!AppModule'], AppModule => res(AppModule.default)))
-}
+})())
