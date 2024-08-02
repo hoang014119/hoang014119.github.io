@@ -1,4 +1,4 @@
-import { NgModule, COMPILER_OPTIONS, CompilerFactory, Inject } from '@angular/core'
+import { Component, NgModule, COMPILER_OPTIONS, CompilerFactory, Inject } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule } from '@angular/router';
 import { JitCompilerFactory } from '@angular/platform-browser-dynamic'
@@ -7,33 +7,34 @@ import { Router } from '@angular/router';
 import CoreModule, { components as core } from '@core/CoreModule'
 import ComponentsModule, { components } from '@components/ComponentsModule'
 import PagesModule, { components as pages } from '@pages/PagesModule'
-import App from './App'
 import Home from '@pages/Home'
 import Account from '@pages/Account'
 
 
+@Component({
+  selector: 'App',
+  templateUrl: './app.module.html'
+})
+class App { }
+
+
 const routes = [
+  { path: 'home', component: Home },
+  { path: 'account', component: Account },
   {
-    path: 'home',
-    redirectTo: '',
+    path: 'pages', loadChildren: async () => {
+      const mod = await import('@pages/PagesModule')
+      console.log('loadChildren', mod)
+      return mod
+    }
   },
-  {
-    path: 'account',
-    component: Account,
-  },
-  {
-    path: '',
-    component: Home
-  },
-  {
-    path: '**',
-    redirectTo: ''
-  },
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: '**', redirectTo: 'home' },
 ]
 
 @NgModule({
   declarations: [App, ...core, ...components, ...pages],
-  imports: [RouterModule.forRoot(routes, { useHash: true }), BrowserModule, CoreModule, ComponentsModule, PagesModule],
+  imports: [RouterModule.forRoot(routes, { useHash: true }), BrowserModule, CoreModule, ComponentsModule/*, PagesModule*/],
   exports: [RouterModule, FormsModule],
   providers: [
     { provide: COMPILER_OPTIONS, useValue: {}, multi: true },
@@ -48,7 +49,7 @@ export default class AppModule {
 
   constructor() {
     AppModule.instance = this;
-//    console.log('router', this.router)
+    //    console.log('router', this.router)
   }
 
   async getFragment() {

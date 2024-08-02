@@ -1,32 +1,37 @@
-import { NgModule } from '@angular/core'
-import { RouterModule } from '@angular/router'
+import { Component, Inject, NgModule } from '@angular/core'
+import { Router, RouterModule } from '@angular/router'
 import Home from '@pages/Home'
 import Account from '@pages/Account'
 
 
-//const routes = [
-//  {
-//    path: 'home',
-//    redirectTo: '',
-//    pathMatch: 'full'
-//  },
-//  {
-//    path: '',
-//    component: Home
-//  },
-//  //  {
-//  //    path: 'home',
-//  //    component: Home
-//  //  },
-//  {
-//    path: 'account',
-//    component: Account
-//  }
-//]
+@Component({
+  selector: 'Pages',
+  templateUrl: './PagesModule.html'
+})
+class Pages {
+  @Inject(Router) router
 
-export const components = [Home, Account]
+  goTo(url) {
+    this.router.navigate([url])
+  }
+}
+
+
+const routes = [
+  {
+    path: '', component: Pages, children: [
+      { path: 'home1', component: Home },
+      { path: 'account1', component: Account },
+      { path: '', pathMatch: 'full', redirectTo: 'home1' },
+      { path: '**', redirectTo: 'home1' },
+    ]
+  },
+]
+
+export const components = [Pages, Home, Account]
 
 @NgModule({
-  //  imports: [RouterModule.forChild(routes)],
+  declarations: components,
+  imports: [RouterModule.forChild(routes)],
 })
-export default class { }
+export default class PagesModule { }
