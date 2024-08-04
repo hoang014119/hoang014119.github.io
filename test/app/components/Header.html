@@ -6,6 +6,7 @@
 <button (click)="goTo('/home')">Home</button>
 <button (click)="goTo('/account')">Account</button>
 <button (click)="goTo('/pages')">Pages</button>
+<button (click)="goTo('/vscode')">VsCode</button>
 <ButtonMain [name]="name" (onClick)="goTo('/account')">Test</ButtonMain>
 <div (click)="handleClick()">Header: {{ name }}</div>
 <Test *ngFor="let test of tests" [key]="test">{{ 'Test ' + test }}</Test>

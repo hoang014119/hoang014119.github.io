@@ -9,6 +9,7 @@ import ComponentsModule, { components } from '@components/ComponentsModule'
 import PagesModule, { components as pages } from '@pages/PagesModule'
 import Home from '@pages/Home'
 import Account from '@pages/Account'
+import VsCode from '@components/VsCode.component'
 
 
 @Component({
@@ -28,12 +29,13 @@ const routes = [
       return mod
     }
   },
+  { path: 'vscode', component: VsCode },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', redirectTo: 'home' },
 ]
 
 @NgModule({
-  declarations: [App, ...cores, ...components, ...pages],
+  declarations: [App, ...cores, ...components, ...pages, VsCode],
   imports: [RouterModule.forRoot(routes, { useHash: true }), BrowserModule, CoreModule, ComponentsModule/*, PagesModule*/],
   exports: [RouterModule, FormsModule],
   providers: [
