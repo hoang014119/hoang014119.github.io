@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core'
+import { Component, Inject, ViewChild } from '@angular/core'
 import AuthenService from '@services/AuthenService'
 
 @Component({
@@ -7,4 +7,9 @@ import AuthenService from '@services/AuthenService'
 })
 export default class {
   @Inject(AuthenService) authenService
+  @ViewChild('vscode') vscode
+
+  ngAfterViewInit() {
+    console.log('vscode', this.vscode.nativeElement)
+  }
 }
