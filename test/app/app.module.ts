@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { JitCompilerFactory } from '@angular/platform-browser-dynamic'
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import CoreModule, { components as core } from '@core/CoreModule'
+import CoreModule, { components as cores } from '@core/CoreModule'
 import ComponentsModule, { components } from '@components/ComponentsModule'
 import PagesModule, { components as pages } from '@pages/PagesModule'
 import Home from '@pages/Home'
@@ -33,7 +33,7 @@ const routes = [
 ]
 
 @NgModule({
-  declarations: [App, ...core, ...components, ...pages],
+  declarations: [App, ...cores, ...components, ...pages],
   imports: [RouterModule.forRoot(routes, { useHash: true }), BrowserModule, CoreModule, ComponentsModule/*, PagesModule*/],
   exports: [RouterModule, FormsModule],
   providers: [
