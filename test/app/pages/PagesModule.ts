@@ -34,4 +34,4 @@ export const components = [Pages, Home, Account]
   declarations: components,
   imports: [RouterModule.forChild(routes)],
 })
-export default class PagesModule { }
+export class PagesModule { }

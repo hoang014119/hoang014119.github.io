@@ -1,12 +1,12 @@
 import { Component, NgModule, COMPILER_OPTIONS, CompilerFactory, Inject } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule } from '@angular/router';
-import { JitCompilerFactory } from '@angular/platform-browser-dynamic'
+import { JitCompilerFactory, platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import CoreModule, { components as cores } from '@core/CoreModule'
 import ComponentsModule, { components } from '@components/ComponentsModule'
-import PagesModule, { components as pages } from '@pages/PagesModule'
+import { components as pages } from '@pages/PagesModule'
 import Home from '@pages/Home'
 import Account from '@pages/Account'
 import VsCode from '@components/VsCode.component'
@@ -23,11 +23,7 @@ const routes = [
   { path: 'home', component: Home },
   { path: 'account', component: Account },
   {
-    path: 'pages', loadChildren: async () => {
-      const mod = await import('@pages/PagesModule')
-      console.log('loadChildren', mod)
-      return mod
-    }
+    path: 'pages', loadChildren: () => import('@pages/PagesModule').then(m => m.PagesModule)
   },
   { path: 'vscode', component: VsCode },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -44,7 +40,7 @@ const routes = [
   ],
   bootstrap: [App]
 })
-export default class AppModule {
+export class AppModule {
   static instance: AppModule;
 
   @Inject(Router) router
@@ -66,3 +62,5 @@ export default class AppModule {
     return hash == fragment && module
   }
 }
+
+platformBrowserDynamic().bootstrapModule(AppModule)
