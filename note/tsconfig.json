@@ -1,0 +1,19 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "lib": [
+      "es2016",
+      "dom"
+    ],
+    "experimentalDecorators": true,
+    "baseUrl": "../../../../../Mobile/ionic/ionic-test/node_modules/",
+    "paths": {
+      "@favorite/*": [
+        "../../../../Web/github.io/hoang014119/hoang014119.github.io/note/app/favorite/*"
+      ],
+      "@folder/*": [
+        "../../../../Web/github.io/hoang014119/hoang014119.github.io/note/app/folder/*"
+      ]
+    }
+  }
+}

@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { RouteReuseStrategy, PreloadAllModules, RouterModule, Routes } from '@angular/router'
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular'
+import { Plugins } from '@capacitor/core'
 
 import { IndexPage } from '@folder/index/index.page'
 
@@ -21,6 +22,10 @@ class AppPage {
     { title: 'Spam', url: '/spam', icon: 'warning' },
   ]
   labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders']
+
+  ngOnInit() {
+    Plugins.SplashScreen.hide()
+  }
 }
 
 const routes: Routes = [
