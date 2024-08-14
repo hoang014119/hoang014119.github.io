@@ -24,7 +24,7 @@ define('setup', {
     }
     define('text', {
       load: async (name, req, onLoad) => {
-        const text = await (fetch(`${root}${name}`).then(rs => rs.text()))
+        const text = await (fetch(`${root}${name}`, { cache: "no-cache" }).then(rs => rs.text()))
         define(`text!${name.split('/').pop()}`, text)
         require([`text!${name.split('/').pop()}`])
         onLoad(text)
