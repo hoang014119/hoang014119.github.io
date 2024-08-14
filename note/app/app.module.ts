@@ -26,6 +26,11 @@ class AppPage {
   ngOnInit() {
     Plugins.SplashScreen.hide()
   }
+
+  reload() {
+    localStorage.clear()
+    location.reload()
+  }
 }
 
 const routes: Routes = [

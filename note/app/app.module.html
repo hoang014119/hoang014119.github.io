@@ -17,6 +17,12 @@
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item button="true" lines="none" detail="false" (click)="reload()">
+              <ion-icon aria-hidden="true" slot="start" ios="trash-outline" md="trash-sharp"></ion-icon>
+              <ion-label>Reload</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
         </ion-list>
         <ion-list>
           <ion-list-header>Header</ion-list-header>
