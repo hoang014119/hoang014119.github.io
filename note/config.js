@@ -4,6 +4,7 @@ require(['setup'], setup => (async () => {
   define('text', {
     load: async (name, req, onLoad) => {
       const text = localStorage.getItem(`${setup.root}${name}`) || await fetch(`${setup.root}${name}`, { cache: "no-cache" }).then(rs => rs.text())
+      localStorage.setItem(`${setup.root}${name}`, text)
       define(`text!${name.split('/').pop()}`, text)
       require([`text!${name.split('/').pop()}`])
       onLoad(text)
