@@ -1,6 +1,6 @@
 define('config', {
-  root: (root => root ? `${root}/` : '')(document.currentScript.getAttribute("root")),
-  bootstrapModule: document.currentScript.getAttribute("bootstrapModule"),
+  root: (root => root ? `${root}/` : '')(document.currentScript && document.currentScript.getAttribute("root")),
+  bootstrapModule: document.currentScript && document.currentScript.getAttribute("bootstrapModule"),
   setup: () => require(['@angular/core', 'setup'], (AngularCore, { root, bootstrapModule }) => {
     const { Component, ɵɵdirectiveInject } = AngularCore
     window.import_require = name => new Promise(res => {
