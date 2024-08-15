@@ -13,6 +13,9 @@
       ],
       "@folder/*": [
         "../../../../Web/github.io/hoang014119/hoang014119.github.io/note/app/folder/*"
+      ],
+      "@service/*": [
+        "../../../../Web/github.io/hoang014119/hoang014119.github.io/note/app/service/*"
       ]
     }
   }

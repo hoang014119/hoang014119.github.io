@@ -1,4 +1,4 @@
-import { Component, NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core'
+import { Component, NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Inject } from '@angular/core'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouteReuseStrategy, PreloadAllModules, RouterModule, Routes } from '@angular/router'
@@ -6,6 +6,7 @@ import { RouteReuseStrategy, PreloadAllModules, RouterModule, Routes } from '@an
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular'
 import { Plugins } from '@capacitor/core'
 
+import { NoteService } from '@service/note.service'
 import { IndexPage } from '@folder/index/index.page'
 
 
@@ -14,6 +15,7 @@ import { IndexPage } from '@folder/index/index.page'
   templateUrl: 'app.module.html',
 })
 class AppPage {
+  @Inject(NoteService) noteService
   appPages = [
     { title: 'Favorites', url: '/favorite', icon: 'heart' },
     { title: 'Folder', url: '/folder', icon: 'archive' },
@@ -24,7 +26,8 @@ class AppPage {
   labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders']
 
   ngOnInit() {
-    Plugins.SplashScreen.hide()
+    //    Plugins.SplashScreen.hide()
+    console.log(this.noteService.data)
   }
 
   reload() {
