@@ -1,30 +1,42 @@
 import { Injectable } from '@angular/core';
 
 
+const data = {
+  note: {
+    default: []
+  }
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class NoteService {
-  data = { default: {} }
-  async load() {
+  data = null
 
+  async reload() {
+    this.data = data
+  }
+  async check() {
+    !this.data && await new Promise((res, loop) => (loop = () => setTimeout(() => window.console ? res() : loop(), 100))())
   }
   async save() {
 
   }
-  get_groups() {
-
+  async get_groups() {
+    await this.check()
+    return Object.keys(this.data)
   }
-  get_by_group(group) {
+  async get_by_group(group) {
+    await this.check()
     return this.data[group]
   }
-  get_by_id() {
-
+  async get_by_id() {
+    await this.check()
   }
-  update_by_id() {
-
+  async update_by_id() {
+    await this.check()
   }
-  remove_by_id() {
-
+  async remove_by_id() {
+    await this.check()
   }
 }
