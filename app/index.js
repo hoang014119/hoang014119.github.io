@@ -20,6 +20,7 @@ define("cache", {
 define("index", () => {
   const prompt = () => {
     const input = document.createElement("input")
+    input.name = "app"
     input.type = "password"
     input.autofocus = true;
     input.onkeydown = event => {
