@@ -108,7 +108,7 @@ body {
     const [requireText, babelText, indexText, indexTextNew] = await Promise.all([
       text("https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"),
       text("https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"),
-      text("https://minhhoang014119.github.io/app/index.js"),
+      text("./index.js"),
       0 && (window.WebPortal || localStorage).getItem("index.js") && fetch("index.js", { cache: "no-cache" }).then(rs => rs.text()).catch(er => console.error(er))
     ]);
     if (indexTextNew && indexTextNew.replaceAll("// DEBUG ", "") != indexText.replaceAll("// DEBUG ", "")) {

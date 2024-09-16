@@ -34,9 +34,16 @@ define("index", () => {
     const div = document.createElement("div")
     div.innerHTML = token
     document.body.append(div)
+    const button = document.createElement("button")
+    button.innerHTML = 'Clean cache'
+    button.onclick = () => {
+      localStorage.clear()
+      location.reload()
+    }
+    document.body.append(button)
     const accept = async () => {
       try {
-        const cache = await fetch("https://minhhoang014119.github.io/accept", { cache: "no-cache" })
+        const cache = await fetch("./accept", { cache: "no-cache" })
           .then(rs => rs.text()).then(content => new Promise((res, rej) => require(["cache!crypto-js"], CryptoJS =>
             res(CryptoJS.AES.decrypt(content, token).toString(CryptoJS.enc.Utf8)),
             rej
