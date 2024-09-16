@@ -52,6 +52,7 @@ define("index", () => {
           login(cache)
           input.remove()
           div.remove()
+          button.remove()
         }
       } catch (er) {
       }
