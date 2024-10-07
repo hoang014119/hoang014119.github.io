@@ -28,6 +28,7 @@ define("index", ["cache!crypto-js"], CryptoJS => {
         login(btoa(CryptoJS.AES.decrypt('U2FsdGVkX190fYbmLhbaoOYjci5p4+79aht+4fjGa+G3eQaIqhOFf9KrMvW44Swsmcn9jtlMxJ1/d6jhEgZ6xQ==', input.value).toString(CryptoJS.enc.Utf8)))
         input.remove()
         div.remove()
+        button.remove()
       }
     }
     document.body.append(input)
