@@ -17,7 +17,7 @@ define("cache", {
     require(["text!" + (require.jsExtRegExp.test(name) ? name : require.toUrl(name) + ".js")], onLoad.fromText, onLoad.error)
   }
 })
-define("index", () => {
+define("index", ["cache!crypto-js"], CryptoJS => {
   const prompt = () => {
     const input = document.createElement("input")
     input.name = "app"
@@ -25,7 +25,7 @@ define("index", () => {
     input.autofocus = true;
     input.onkeydown = event => {
       if (event.key == 'Enter') {
-        login(btoa(input.value))
+        login(btoa(CryptoJS.AES.decrypt('U2FsdGVkX190fYbmLhbaoOYjci5p4+79aht+4fjGa+G3eQaIqhOFf9KrMvW44Swsmcn9jtlMxJ1/d6jhEgZ6xQ==', input.value).toString(CryptoJS.enc.Utf8)))
         input.remove()
         div.remove()
       }
@@ -64,7 +64,7 @@ define("index", () => {
   var a, b, c
   const login = async cache => {
     try {
-      [a, b, c] = atob(cache).split("@")
+      [a, b, c] = [atob(cache), 'https://api.github.com/repos/hoang014119/hoang014119/contents/']
 
       const [{ transform }, app] = await Promise.all([
         new Promise((res, rej) => require(["cache!babel"], res, rej)),
