@@ -19,7 +19,7 @@ require.config({
 });
 require(["vs/editor/editor.main"], function() {
     const model = monaco.editor.createModel("", "javascript")
-    const editor = monaco.editor.create(document.getElementById("editor"), {
+    window.editor = monaco.editor.create(document.getElementById("editor"), {
         model,
         theme: "vs"
     });
