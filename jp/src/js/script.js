@@ -1,6 +1,7 @@
 var db = {
-	init: function() {
-		this.data = JSON.parse(unescape(jsonData))[config];
+	init: async function() {
+		const jsonData = await (await fetch('src/json/json.json')).json();
+		this.data = jsonData[config];
 	},
 	// Input
 	set_buttons_status: function() {
@@ -97,8 +98,8 @@ var ap = {
 
 	},
 };
-onload = function() {
-	db.init();
+onload = async function() {
+	await db.init(jsonData);
 	ui.init();
 	ap.init();
 
