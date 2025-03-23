@@ -99,7 +99,7 @@ var ap = {
 	},
 };
 onload = async function() {
-	await db.init(jsonData);
+	await db.init();
 	ui.init();
 	ap.init();
 
